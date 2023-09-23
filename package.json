@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint && npx prettier -w .",
-    "prepare": "husky install"
+    "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\" && git add .husky/pre-commit"
   },
   "dependencies": {
     "@types/node": "20.6.3",
