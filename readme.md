@@ -112,14 +112,14 @@ Modify our `package.json`, find "scripts" - "lint". Then change append "` && npx
 
 ```json
 {
-  ...,
+  // ...,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint && npx prettier -w ."
   },
-  ...
+  // ...
 }
 ```
 
