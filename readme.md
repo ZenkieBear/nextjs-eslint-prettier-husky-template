@@ -1,4 +1,5 @@
 # How to use?
+
 - Open terminal at your workspace directory, execute `git clone https://github.com/ZenkieBear/nextjs-eslint-prettier-husky-template.git`
 - Install dependencies:
   ```shell
@@ -118,7 +119,7 @@ Modify our `package.json`, find "scripts" - "lint". Then change append "` && npx
     "build": "next build",
     "start": "next start",
     "lint": "next lint && npx prettier -w ."
-  },
+  }
   // ...
 }
 ```
@@ -138,40 +139,45 @@ npm install -D husky lint-staged
 ### Configure Husky
 
 ```shell
-npm pkg set scripts.prepare="husky install && npx husky add .husky/pre-commit \"npx lint-staged\" && git add .husky/pre-commit"
+npm pkg set scripts.prepare="husky install && npx husky add .husky/pre-commit \"npx lint-staged\""
 ```
+
 This line defined a script in `package.json`, other developers should execute this before thier development.
+
 1. Install **Git hooks**, this hooks will executed when we commit.
-2. Create a file in our project: _.husky/pre-commit_, it contains commands to execute like "npx lint-staged", you can manually edit it to manage behaviors.
-3. Add it to git, then git will execute it before commit.
+2. Create a file in our project: _.husky/pre-commit_, it contains commands to execute like "npx lint-staged", you can manually edit it to manage behaviors. They’ll be executed before a git-commit
 
 ### Configure lint-staged
 
 Let’s create a _.lintstagedrc.js_ in our project’s root directory:
 
 ```js
-const path = require("path");
+const path = require('path')
 
 const testEslint = filenames =>
   `next lint --fix --file ${filenames
     .map(name => path.relative(process.cwd(), name))
-    .join(' --file ')}`;
+    .join(' --file ')}`
 const testPrettier = filenames =>
   `npx prettier -w ${filenames
     .map(name => path.relative(process.cwd(), name))
-    .join(' ')}`;
+    .join(' ')}`
 
 module.exports = {
   '*.{js,jsx,ts,tsx}': [testEslint, testPrettier],
 }
 ```
+
 The `testEslint` and `testPrettier` concat all staged file’s name, and generate the command for linting.
 
 ## [Optional] Inspect Result
+
 Let’s check our work achievements!
+
 1. Break any code style, such as add different tab width, add some meaningless whitespaces...
 2. Stage the file you modified through `git add .`
 3. Commit your changes through `git commit`, the console will linting with eslint and prettier before commit, and it will cancel the commit cause of the warnings in your code.
 
 ## Finally
+
 Congratulations! Now all integration is finished.👏
